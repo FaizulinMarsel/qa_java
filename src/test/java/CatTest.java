@@ -12,9 +12,11 @@ import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CatTest {
+    @Mock
+    private Feline felineMock;
 
     @Test
-    public  void testGetFoodNotMockito() throws Exception{
+    public void testGetFoodNotMockito() throws Exception {
         Feline feline = new Feline();
         Cat cat = new Cat(feline);
         List<String> expectedFood = new ArrayList<>();
@@ -23,23 +25,23 @@ public class CatTest {
         expectedFood.add("Рыба");
         Assert.assertEquals("Текст не совпадает", expectedFood, cat.getFood());
     }
-    @Mock
-    private Feline feline;
+
 
     @Test
-    public void testGetFoodWithMokito() throws Exception{
-        Cat cat = new Cat(feline);
-        Mockito.when(feline.eatMeat()).thenReturn(List.of("Трава","Различные растения"));
+    public void testGetFoodWithMokito() throws Exception {
+        Cat cat = new Cat(felineMock);
+        Mockito.when(felineMock.eatMeat()).thenReturn(List.of("Трава", "Различные растения"));
         List<String> expectedFood = new ArrayList<>();
         expectedFood.add("Трава");
         expectedFood.add("Различные растения");
         Assert.assertEquals("Текст не совпадает", expectedFood, cat.getFood());
     }
+
     @Test
-    public void testReturnTextSound(){
+    public void testReturnTextSound() {
         Feline feline = new Feline();
         Cat cat = new Cat(feline);
         String expectedSound = "Мяу";
-        Assert.assertEquals("Текст не совпадает",expectedSound,cat.getSound());
+        Assert.assertEquals("Текст не совпадает", expectedSound, cat.getSound());
     }
 }

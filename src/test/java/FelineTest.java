@@ -12,10 +12,11 @@ public class FelineTest {
     private final int actualKit;
     private final int expectedKit;
 
-    public FelineTest(int actualKit, int expectedKit){
+    public FelineTest(int actualKit, int expectedKit) {
         this.actualKit = actualKit;
         this.expectedKit = expectedKit;
     }
+
     @Parameterized.Parameters
     public static Object[][] getFelineTest() {
         return new Object[][]{
@@ -24,7 +25,7 @@ public class FelineTest {
     }
 
     @Test
-    public void testEatMeat() throws Exception{
+    public void testEatMeat() throws Exception {
         Feline feline = new Feline();
         List<String> expectedFood = new ArrayList<>();
         expectedFood.add("Животные");
@@ -34,19 +35,21 @@ public class FelineTest {
     }
 
     @Test
-    public void testReturnTextFamily(){
+    public void testReturnTextFamily() {
         Feline feline = new Feline();
         String expectedFamily = "Кошачьи";
         Assert.assertEquals("Текст не совпадает", expectedFamily, feline.getFamily());
     }
+
     @Test
-    public void testAmountKittensNotСonstructor(){
+    public void testAmountKittensNotСonstructor() {
         Feline feline = new Feline();
         int expectedKittens = 1;
         Assert.assertEquals("Количество львят не совпадает", expectedKittens, feline.getKittens());
     }
+
     @Test
-    public void testAmountKittensWithСonstructor(){
+    public void testAmountKittensWithСonstructor() {
         Feline feline = new Feline();
         int actualKittens = actualKit;
         int expectedKittens = expectedKit;

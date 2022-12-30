@@ -21,24 +21,17 @@ public class Lion {
     }
 
     Predator predator;
-    public Lion(Feline feline){
+
+    public Lion(Feline feline) {
         this.predator = feline;
     }
+
     public List<String> getFood() throws Exception {
         return predator.eatMeat();
     }
-    public int getKittens(int kittensCount){
+
+    public int getKittens(int kittensCount) {
         return predator.getKittens(kittensCount);
     }
 
-    //Изначальный код
-    /*Feline feline = new Feline();
-
-    public int getKittens() {
-        return feline.getKittens();
-    }
-
-    /*public List<String> getFood() throws Exception {
-        return feline.getFood("Травоядное");
-    }*/
 }
