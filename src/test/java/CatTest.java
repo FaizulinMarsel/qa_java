@@ -16,19 +16,19 @@ public class CatTest {
     private Feline felineMock;
 
     @Test
-    public void testGetFoodNotMockito() throws Exception {
+    public void shouldReturnFoodPredator_Cat() throws Exception {
         Feline feline = new Feline();
         Cat cat = new Cat(feline);
         List<String> expectedFood = new ArrayList<>();
         expectedFood.add("Животные");
         expectedFood.add("Птицы");
         expectedFood.add("Рыба");
-        Assert.assertEquals("Текст не совпадает", expectedFood, cat.getFood());
+        Assert.assertEquals("В методе getFood передается значение отличное от <Хищник>", expectedFood, cat.getFood());
     }
 
 
     @Test
-    public void testGetFoodWithMokito() throws Exception {
+    public void shouldCompareTextIfPassedHerbivore_Mockito_Cat() throws Exception {
         Cat cat = new Cat(felineMock);
         Mockito.when(felineMock.eatMeat()).thenReturn(List.of("Трава", "Различные растения"));
         List<String> expectedFood = new ArrayList<>();
@@ -38,10 +38,10 @@ public class CatTest {
     }
 
     @Test
-    public void testReturnTextSound() {
+    public void shouldCheckSoundCat() {
         Feline feline = new Feline();
         Cat cat = new Cat(feline);
         String expectedSound = "Мяу";
-        Assert.assertEquals("Текст не совпадает", expectedSound, cat.getSound());
+        Assert.assertEquals("Звук не совпадает", expectedSound, cat.getSound());
     }
 }

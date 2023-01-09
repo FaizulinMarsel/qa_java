@@ -20,11 +20,11 @@ public class LionTest {
     @Mock
     private Feline felineMock;
 
-    public LionTest(String gender, int actualKitLion, int expectedKitLion) {
+    public LionTest(String gender, int expectedKitLion, int actualKitLion) {
 
         this.gender = gender;
-        this.actualKitLion = actualKitLion;
         this.expectedKitLion = expectedKitLion;
+        this.actualKitLion = actualKitLion;
     }
 
     @Parameterized.Parameters
@@ -32,7 +32,6 @@ public class LionTest {
         return new Object[][]{
                 {"Самец", 1, 1},
                 {"Самка", 1, 2},
-                {"Нечто", 3, 1},
         };
     }
 
@@ -42,26 +41,36 @@ public class LionTest {
     }
 
     @Test
-    public void testDoesHaveMane() throws Exception {
-        Lion lion = new Lion(gender);
+    public void shouldCheckHaveMane() throws Exception {
+        Feline feline = new Feline();
+        Lion lion = new Lion(gender, feline);
         Assert.assertTrue("В контструтор передано <Самка>. При передачи <Самка> переменная hasMane = false", lion.doesHaveMane());
     }
 
     @Test
-    public void testGetFoodNotMockito() throws Exception {
+    public void shouldHandleExceptionAndCheckText() throws Exception {
         Feline feline = new Feline();
-        Lion lion = new Lion(feline);
+        Exception exception = Assert.assertThrows(Exception.class, () -> {
+            new Lion("Нечто", feline);
+        });
+        Assert.assertEquals("Используйте допустимые значения пола животного - самец или самка", exception.getMessage());
+    }
+
+    @Test
+    public void shouldReturnFoodPredator_Lion() throws Exception {
+        Feline feline = new Feline();
+        Lion lion = new Lion("Самка", feline);
         List<String> expectedFood = new ArrayList<>();
         expectedFood.add("Животные");
         expectedFood.add("Птицы");
         expectedFood.add("Рыба");
-        Assert.assertEquals("Текст не совпадает", expectedFood, lion.getFood());
+        Assert.assertEquals("В методе getFood передается значение отличное от <Хищник>", expectedFood, lion.getFood());
     }
 
 
     @Test
-    public void testGetFoodWithMockito() throws Exception {
-        Lion lion = new Lion(felineMock);
+    public void shouldCompareTextIfPassedHerbivore_Mockito_Lion() throws Exception {
+        Lion lion = new Lion("Самка", felineMock);
         Mockito.when(felineMock.eatMeat()).thenReturn(List.of("Трава", "Различные растения"));
         List<String> expectedFood = new ArrayList<>();
         expectedFood.add("Трава");
@@ -70,11 +79,9 @@ public class LionTest {
     }
 
     @Test
-    public void testGetKittensWithConstruktor() {
+    public void shouldCheckKittens() throws Exception {
         Feline feline = new Feline();
-        Lion lion = new Lion(feline);
-        int actualKittens = actualKitLion;
-        int expectedKittens = expectedKitLion;
-        Assert.assertEquals("Количество львят не совпадает", expectedKittens, lion.getKittens(actualKittens));
+        Lion lion = new Lion("Самка", feline);
+        Assert.assertEquals("Количество львят не совпадает", expectedKitLion, lion.getKittens(actualKitLion));
     }
 }
